@@ -1,0 +1,70 @@
+﻿@model Book
+
+<form method="post" enctype="multipart/form-data">
+	<input asp-for="İmageUrl" hidden />
+	<div class="row">
+
+		<div class="col-10">
+			<div class="border p-3 mt-5">
+				<div class="row pb-3">
+					<h2 class="text-primary">@(Model == null ? "Kitap Ekle" : "Kitap Güncelle")</h2>
+				</div>
+				<div class="mb-3">
+					<label asp-for="BookName" class="p-0"></label>
+					<input asp-for="BookName" class="form-control" />
+					<span asp-validation-for="BookName" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="BookTypeId" class="p-0"></label>
+					<select asp-for="BookTypeId" asp-items="ViewBag.BookTypeList" class="form-select">
+					</select>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Description" class="p-0"></label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Writer" class="p-0"></label>
+					<input asp-for="Writer" class="form-control" />
+					<span asp-validation-for="Writer" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="Price" class="p-0"></label>
+					<input asp-for="Price" class="form-control" />
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="İmageUrl" class="p-0"></label>
+					<input type="File" name="File" class="form-control" />
+				</div>
+				@if (Model != null)
+				{
+					<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Güncelle</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-lg btn-primary" style="width:200px">Kitap Ekle</button>
+
+				}
+				<a asp-controller="Book" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Kitaplara Geri Dön</a>
+			</div>
+		</div>
+
+		<div class="col-2">
+			@if (Model != null)
+			{
+				<img src="@Model.İmageUrl" width="100"
+					 style="border-radius:10px; border:3px solid #bbb9b9"/>
+			}
+		</div>
+	</div>
+
+
+</form>
+
+@*@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/> FRONTEND TARAFINDA DOĞRULAMA İŞLEMİ
+	}
+}*@

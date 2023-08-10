@@ -1,0 +1,89 @@
+﻿@using WebUygulamaProje.Context;
+@model List<Book>
+
+@if (TempData["basarili"] != null)
+{
+	<h4 style="color:dodgerblue">@TempData["basarili"]</h4>
+}
+
+<div class="container">
+	<div class="row pt-3 pb-4">
+		<div>
+			<h1>Kitaplar</h1>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+
+				<th>
+					Resim
+				</th>
+
+				<th>
+					ID
+				</th>
+				<th>
+					Kitap Adı
+				</th>
+				<th>
+					Açıklama
+				</th>
+				<th>
+					Yazar Adı
+				</th>
+				<th>
+					Fiyat
+				</th>
+				<th>
+					Kitap Türü
+				</th>
+				@if (User.IsInRole(UserRoles.Role_Admin))
+				{
+						<th>
+						</th>
+						<th>
+						</th>
+				}
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var book in Model)
+			{
+				<tr>
+					<td align="center" valign="middle">
+						<img src="@book.İmageUrl" style="border-radius:7px; border:1px solid #bbb9b9;
+														max-width:150px;"/>
+					</td>
+					<td align="center" valign="middle">@book.Id</td>
+					<td align="center" valign="middle">@book.BookName</td>
+					<td align="center" valign="middle">@book.Description</td>
+					<td align="center" valign="middle">@book.Writer</td>
+					<td align="center" valign="middle">@book.Price</td>
+					<td align="center" valign="middle">@book.BookType.Name</td>
+
+
+					@if (User.IsInRole(UserRoles.Role_Admin))
+					{
+						<td align="center" valign="middle">
+							<a asp-controller="Book" asp-action="AddUpdate" asp-route-id="@book.Id" type="button" class="btn btn-success" style="width:100px">Güncelle</a>
+						</td>
+						<td align="center" valign="middle">
+							<a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" type="button" class="btn btn-danger" style="width:100px">Sil</a>
+						</td>
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	@if (User.IsInRole(UserRoles.Role_Admin))
+	{
+		<div class="row pt-3 pb-2">
+			<div>
+				<a asp-controller="Book" asp-action="AddUpdate" class="btn btn-lg btn-primary" type="button">Yeni Kitap Oluştur</a>
+			</div>
+		</div>
+	}
